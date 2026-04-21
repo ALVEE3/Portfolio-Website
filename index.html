@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ahadul Islam Chowdhury</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --gold-dark: #9a7a2e;
+      --gold-glow: rgba(201, 168, 76, .15);
+      --bg: #080808;
+      --bg2: #101010;
+      --bg3: #181818;
+      --bg4: #1f1f1f;
+      --text: #f0f0f0;
+      --muted: #888;
+      --muted2: #555;
+      --border: #2a2a2a;
+      --border2: #333
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none
+    }
+
+    a:hover {
+      color: var(--gold-light)
+    }
+
+    /* PAGE SYSTEM */
+    .page {
+      display: none;
+      min-height: 100vh
+    }
+
+    .page.active {
+      display: block
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(8, 8, 8, .95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--text);
+      cursor: pointer
+    }
+
+    .nav-logo span {
+      color: var(--gold)
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .85rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .2s;
+      cursor: pointer
+    }
+
+    .nav-links a:hover {
+      color: var(--gold)
+    }
+
+    section {
+      padding: 6rem 2rem
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-bg-line {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: .3
+    }
+
+    .hero-bg-line2 {
+      position: absolute;
+      top: 0;
+      left: 38%;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border2), transparent);
+      opacity: .4
+    }
+
+    .hero-orb {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--gold-glow) 0%, transparent 65%);
+      pointer-events: none
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -.03em;
+      margin-bottom: 1.5rem
+    }
+
+    .hero-name .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--gold);
+      display: block
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.25rem
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 0
+    }
+
+    .hero-photo-wrap {
+      flex-shrink: 0
+    }
+
+    .hero-photo-ring {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 4px;
+      background: var(--gold-dark);
+      position: relative
+    }
+
+    .hero-photo-wrap {
+      position: relative
+    }
+
+    .hero-photo-wrap::before,
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--gold);
+      opacity: 0;
+      animation: pulse 2.8s ease-out infinite
+    }
+
+    .hero-photo-wrap::after {
+      animation-delay: 1.4s
+    }
+
+    @keyframes pulse {
+      0% {
+        width: 280px;
+        height: 280px;
+        opacity: .6
+      }
+
+      100% {
+        width: 360px;
+        height: 360px;
+        opacity: 0
+      }
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid var(--bg)
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .8rem 2.2rem;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all .25s;
+      cursor: pointer;
+      border: none
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      color: #000;
+      transform: translateY(-2px)
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text)
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px)
+    }
+
+    .btn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .7rem 1.8rem;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold-dark);
+      color: var(--gold);
+      background: transparent;
+      border-radius: 2px;
+      transition: all .25s;
+      cursor: pointer;
+      margin-top: 2.5rem
+    }
+
+    .btn-more:hover {
+      background: var(--gold-glow);
+      border-color: var(--gold);
+      transform: translateY(-2px)
+    }
+
+    .btn-more::after {
+      content: '→';
+      transition: transform .2s
+    }
+
+    .btn-more:hover::after {
+      transform: translateX(4px)
+    }
+
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem
+    }
+
+    .divider-label {
+      font-size: .7rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold), transparent)
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: .5rem
+    }
+
+    .section-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border2)
+    }
+
+    .title-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 3.5rem
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--bg2)
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: start
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      font-size: 1rem;
+      line-height: 1.85
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem
+    }
+
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      padding: 1.5rem 1.25rem;
+      border-radius: 2px;
+      transition: border-color .3s, transform .3s
+    }
+
+    .stat-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px)
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1
+    }
+
+    .stat-label {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .4rem;
+      letter-spacing: .05em
+    }
+
+    /* SKILLS */
+    #skills {
+      background: var(--bg)
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border)
+    }
+
+    .skill-cat {
+      background: var(--bg);
+      padding: 1.5rem;
+      transition: background .25s
+    }
+
+    .skill-cat:hover {
+      background: var(--bg3)
+    }
+
+    .skill-cat h3 {
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem
+    }
+
+    .skill-cat h3::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border2)
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem
+    }
+
+    .tag {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      font-size: .78rem;
+      padding: .3rem .7rem;
+      border-radius: 1px;
+      transition: all .2s;
+      cursor: default
+    }
+
+    .tag:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--bg4)
+    }
+
+    /* LOGO ICONS */
+    .logo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem
+    }
+
+    .logo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      padding: .65rem .5rem;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 2px;
+      min-width: 60px;
+      cursor: default;
+      transition: all .25s;
+      position: relative
+    }
+
+    .logo-item:hover {
+      border-color: var(--gold);
+      background: var(--bg4);
+      transform: translateY(-2px)
+    }
+
+    .logo-item svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--gold);
+      opacity: .75;
+      transition: opacity .25s
+    }
+
+    .logo-item:hover svg {
+      opacity: 1
+    }
+
+    .logo-item span {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color .25s
+    }
+
+    .logo-item:hover span {
+      color: var(--gold)
+    }
+
+    /* PROJECTS */
+    #projects {
+      background: var(--bg2)
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+      cursor: default
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--gold-dark));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border2)
+    }
+
+    .project-card:hover::after {
+      transform: scaleX(1)
+    }
+
+    .project-num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--border2);
+      line-height: 1;
+      margin-bottom: .75rem;
+      transition: color .3s
+    }
+
+    .project-card:hover .project-num {
+      color: var(--gold-glow)
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: .6rem;
+      letter-spacing: -.01em
+    }
+
+    .project-card p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: 1.25rem
+    }
+
+    .project-stack .tag {
+      font-size: .72rem
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1.25rem;
+      font-size: .82rem;
+      letter-spacing: .05em;
+      text-transform: uppercase
+    }
+
+    .project-links a {
+      color: var(--muted);
+      transition: color .2s
+    }
+
+    .project-links a:hover {
+      color: var(--gold)
+    }
+
+    /* EXPERIENCE */
+    #experience {
+      background: var(--bg)
+    }
+
+    .timeline {
+      position: relative
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent)
+    }
+
+    .exp-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 3rem
+    }
+
+    .exp-dot {
+      position: absolute;
+      left: -5px;
+      top: .4rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--gold-dark)
+    }
+
+    .exp-date {
+      font-size: .72rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+      font-weight: 600
+    }
+
+    .exp-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: .15rem;
+      letter-spacing: -.01em
+    }
+
+    .exp-company {
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: .9rem
+    }
+
+    .exp-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.75
+    }
+
+    .exp-desc li {
+      margin-bottom: .45rem;
+      margin-left: 1.1rem
+    }
+
+    .exp-desc li::marker {
+      color: var(--gold)
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--bg2);
+      text-align: center
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 900;
+      letter-spacing: -.01em;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-dark);
+      padding-bottom: .25rem;
+      margin: 1.5rem 0 2.5rem;
+      transition: color .2s
+    }
+
+    .contact-email:hover {
+      color: var(--gold-light)
+    }
+
+    .contact-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 440px;
+      margin: 0 auto
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--border2);
+      border-radius: 50%;
+      transition: all .25s;
+      position: relative
+    }
+
+    .social-link::before,
+    .social-link::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      opacity: 0;
+      width: 52px;
+      height: 52px;
+      animation: social-pulse 2.6s ease-out infinite
+    }
+
+    .social-link::after {
+      animation-delay: 1.3s
+    }
+
+    @keyframes social-pulse {
+      0% {
+        width: 52px;
+        height: 52px;
+        opacity: .7
+      }
+
+      100% {
+        width: 90px;
+        height: 90px;
+        opacity: 0
+      }
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      background: var(--gold-glow);
+      transform: translateY(-3px)
+    }
+
+    .social-link:hover svg {
+      filter: brightness(1.3)
+    }
+
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: .8rem;
+      color: var(--muted2);
+      letter-spacing: .05em
+    }
+
+    /* INNER PAGE STYLES */
+    .page-hero {
+      padding: 8rem 2rem 4rem;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+      pointer-events: none
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .2s;
+      margin-bottom: 2rem
+    }
+
+    .back-btn::before {
+      content: '←';
+      transition: transform .2s
+    }
+
+    .back-btn:hover {
+      color: var(--gold)
+    }
+
+    .back-btn:hover::before {
+      transform: translateX(-4px)
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1
+    }
+
+    .page-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--gold)
+    }
+
+    .page-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-left: 2px solid var(--gold);
+      padding-left: 1rem
+    }
+
+    /* PROJECTS PAGE */
+    .all-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem
+    }
+
+    /* EDUCATION/EXPERIENCE PAGE */
+    .edu-timeline {
+      position: relative;
+      padding-left: 0
+    }
+
+    .edu-section-label {
+      font-size: .7rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 3rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem
+    }
+
+    .edu-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold-dark), transparent)
+    }
+
+    .edu-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 1.75rem;
+      margin-bottom: 1rem;
+      border-radius: 2px;
+      transition: transform .25s, border-color .25s
+    }
+
+    .edu-item:hover {
+      transform: translateX(4px);
+      border-left-color: var(--gold-light)
+    }
+
+    .edu-years {
+      font-size: .72rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+      font-weight: 600
+    }
+
+    .edu-degree {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: .2rem
+    }
+
+    .edu-institution {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-bottom: .6rem
+    }
+
+    .edu-desc {
+      font-size: .88rem;
+      color: var(--muted2);
+      line-height: 1.7
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s ease, transform .65s ease
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    @media(max-width:680px) {
+      .about-grid {
+        grid-template-columns: 1fr
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .hero-inner {
+        flex-direction: column-reverse;
+        text-align: center
+      }
+
+      .hero-photo-ring {
+        width: 180px;
+        height: 180px
+      }
+
+      .hero-tagline {
+        margin: 0 auto 2rem
+      }
+
+      .hero-btns {
+        justify-content: center
+      }
+    }
+
+    /* ALVEE GAME STYLES */
+    #game-ui {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    #game-hud {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(8, 8, 8, 0.8);
+      border: 1px solid var(--gold);
+      padding: 10px 20px;
+      border-radius: 4px;
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: flex;
+      gap: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    #game-tank {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .tank-base {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: var(--gold-dark);
+      border-radius: 4px;
+      border: 2px solid var(--gold);
+    }
+
+    .tank-turret {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      width: 20px;
+      height: 15px;
+      background: var(--gold);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .tank-gun {
+      position: absolute;
+      bottom: 30px;
+      left: 18px;
+      width: 4px;
+      height: 15px;
+      background: var(--gold-light);
+    }
+
+    .bullet {
+      position: fixed;
+      width: 4px;
+      height: 12px;
+      background: var(--gold-light);
+      box-shadow: 0 0 5px var(--gold);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(8px);
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg2);
+      border: 2px solid var(--gold);
+      padding: 30px 40px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 400px;
+      animation: popIn 0.3s ease-out;
+    }
+
+    .modal-content h2 {
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .modal-content input:focus {
+      border-color: var(--gold);
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .emoji-rain {
+      position: fixed;
+      font-size: 24px;
+      pointer-events: none;
+      z-index: 10002;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    .shake {
+      animation: shake 0.2s cubic-bezier(.36, .07, .19, .97) both;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%);
+      }
+
+      25% {
+        transform: translate(-55%, -50%);
+      }
+
+      75% {
+        transform: translate(-45%, -50%);
+      }
+    }
+
+    .firework {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10002;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(20);
+        opacity: 0;
+      }
+    }
+
+    .game-toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--gold);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      pointer-events: none;
+      z-index: 10003;
+      text-shadow: 0 0 15px var(--gold-glow), 0 0 30px var(--gold-glow);
+      animation: toastFade 2s ease-out forwards;
+    }
+
+    @keyframes toastFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.95);
+      }
+    }
+
+    /* ALVEE WELCOME BUBBLE */
+    .alvee-bubble {
+      position: fixed;
+      z-index: 10004;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.5) translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .alvee-bubble.show {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .alvee-bubble.hide {
+      opacity: 0;
+      transform: scale(0.8) translateY(-10px);
+    }
+
+    .alvee-bubble-inner {
+      background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 10px 18px;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(201, 168, 76, 0.2), 0 4px 15px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    .alvee-bubble-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 14px;
+      height: 14px;
+      background: rgba(25, 25, 25, 0.97);
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+    }
+
+    /* EARTHQUAKE EFFECT */
+    @keyframes earthquakeShake {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      10% {
+        transform: translate(-4px, 3px) rotate(-0.5deg);
+      }
+
+      20% {
+        transform: translate(5px, -3px) rotate(0.6deg);
+      }
+
+      30% {
+        transform: translate(-3px, 4px) rotate(-0.4deg);
+      }
+
+      40% {
+        transform: translate(4px, -2px) rotate(0.5deg);
+      }
+
+      50% {
+        transform: translate(-5px, 3px) rotate(-0.6deg);
+      }
+
+      60% {
+        transform: translate(3px, -4px) rotate(0.4deg);
+      }
+
+      70% {
+        transform: translate(-4px, 2px) rotate(-0.5deg);
+      }
+
+      80% {
+        transform: translate(5px, 4px) rotate(0.6deg);
+      }
+
+      90% {
+        transform: translate(-3px, -3px) rotate(-0.4deg);
+      }
+    }
+
+    body.earthquake {
+      animation: earthquakeShake 0.12s infinite;
+    }
+
+    /* MINI ALVEE SWARM */
+    .mini-alvee {
+      position: absolute;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    .mini-alvee svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--bg);
+      filter: drop-shadow(0 0 4px var(--gold-glow));
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== MAIN PAGE ========== -->
+  <div id="main-page" class="page active">
+    <nav>
+      <div class="nav-logo" onclick="showPage('main-page')">Alvee Chowdhury<span>.</span></div>
+      <ul class="nav-links">
+        <li><a onclick="goTo('about')">About</a></li>
+        <li><a onclick="goTo('skills')">Skills</a></li>
+        <li><a onclick="goTo('projects')">Projects</a></li>
+        <li><a onclick="goTo('experience')">Experience</a></li>
+        <li><a onclick="goTo('contact')">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-orb"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <div class="hero-tag">Software Engineer</div>
+            <h1 class="hero-name">Ahadul Islam<span class="line2">Chowdhury</span></h1>
+            <p class="hero-tagline">Building robust, scalable software solutions — from clean APIs to polished user
+              interfaces. Passionate about great code and greater products.</p>
+            <div style="display: inline-flex; flex-direction: column; align-items: center; gap: 1.2rem;">
+              <div class="hero-btns">
+                <button class="btn btn-primary" onclick="goTo('projects')">View Projects</button>
+                <button class="btn btn-outline" onclick="goTo('contact')">Get In Touch</button>
+              </div>
+              <button id="lets-play-btn" class="btn btn-outline"
+                style="display: inline-flex; align-items: center; gap: 0.5rem; border-color: var(--gold); color: var(--gold);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
+                  <line x1="6" y1="12" x2="10" y2="12"></line>
+                  <line x1="8" y1="10" x2="8" y2="14"></line>
+                  <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                  <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                </svg>
+                Let's Play
+              </button>
+            </div>
+          </div>
+          <div class="hero-photo-wrap">
+            <div class="hero-photo-ring">
+              <img
+                src="https://scontent.fdac13-1.fna.fbcdn.net/v/t39.30808-6/484980555_3929560450664990_4745063544914639486_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeElJ6_xBWTWirFUFJ2hUIOBqE7boHhuBQOoTtugeG4FA4VKa-QAOVZXWH8GPhWbnL_g2eU6t4JT4aLRFuIP9p5V&_nc_ohc=KtVNsbPuv7EQ7kNvwE11JCM&_nc_oc=AdqqPfM0FCHwlxxdIuEm8sHM7GnnDhF0nw7H3f8EvZBlNARMQJsQ2cCKh58wuOv68V8&_nc_zt=23&_nc_ht=scontent.fdac13-1.fna&_nc_gid=3SkDMfL2egyNqtzaZvz8Xg&_nc_ss=7a3a8&oh=00_Af1RsLaSMexemehL_7TVo_nr37IClfuCUESFNJ43kSk8uw&oe=69EAF71E"
+                alt="Ahadul Islam Chowdhury" class="hero-photo" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="divider fade-up"><span class="divider-label">Who I am</span><span class="divider-line"></span></div>
+        <div class="about-grid fade-up">
+          <div class="about-text">
+            <h2 class="section-title">About <span class="outline">Me</span></h2>
+            <p>Hi! I'm Ahadul — a software engineer based in Dhaka, Bangladesh. I love solving complex problems through
+              elegant, maintainable code.</p>
+            <p>With experience across the full stack, I thrive in environments where I can ship meaningful features,
+              collaborate with driven teams, and continuously grow as an engineer.</p>
+            <p>When I'm not coding, I'm reading about system design, contributing to open source, or exploring new
+              frameworks.</p>
+            <button class="btn-more" onclick="showPage('about-page')">View Full Background</button>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-num">3+</div>
+              <div class="stat-label">Years of experience</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">15+</div>
+              <div class="stat-label">Projects delivered</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">10+</div>
+              <div class="stat-label">Technologies used</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">5★</div>
+              <div class="stat-label">Client satisfaction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="divider fade-up"><span class="divider-label">What I work with</span><span
+            class="divider-line"></span></div>
+        <h2 class="section-title fade-up">Tech <span class="outline">Stack</span></h2>
+        <div class="skills-grid fade-up">
+
+          <div class="skill-cat">
+            <h3>Languages</h3>
+            <div class="logo-grid">
+              <!-- JavaScript: correct JS logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
+                </svg><span>JS</span></div>
+              <!-- TypeScript: correct TS logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z" />
+                </svg><span>TS</span></div>
+              <!-- Python: correct Python logo (two snakes/shields) -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.887S0 5.789 0 11.969c0 6.18 3.403 5.963 3.403 5.963h2.031v-2.867s-.109-3.402 3.35-3.402h5.769s3.24.052 3.24-3.13V3.13S18.28 0 11.914 0zm-3.2 1.812a1.043 1.043 0 0 1 1.046 1.042 1.043 1.043 0 0 1-1.046 1.043A1.043 1.043 0 0 1 7.67 2.854a1.043 1.043 0 0 1 1.044-1.042zM24 12.031c0-6.18-3.403-5.963-3.403-5.963h-2.031v2.867s.109 3.402-3.35 3.402H9.447s-3.24-.052-3.24 3.13v5.404S5.72 24 12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.007-2.752H11.98v-.826h8.134S24 18.211 24 12.031zm-8.714 10.157a1.043 1.043 0 0 1-1.046-1.042 1.043 1.043 0 0 1 1.046-1.043 1.043 1.043 0 0 1 1.044 1.043 1.043 1.043 0 0 1-1.044 1.042z" />
+                </svg><span>Python</span></div>
+              <!-- Java: correct Java logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.749-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.698 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639" />
+                </svg><span>Java</span></div>
+
+              <!-- C++ -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-weight="900"
+                    font-size="12">C++</text>
+                </svg><span>C++</span></div>
+              <!-- C# -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-weight="900"
+                    font-size="12">C#</text>
+                </svg><span>C#</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Frontend</h3>
+            <div class="logo-grid">
+              <!-- React: correct atom logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.29zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z" />
+                </svg><span>React</span></div>
+              <!-- Next.js: correct N logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 0-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z" />
+                </svg><span>Next.js</span></div>
+              <!-- HTML5: correct shield logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414v-.001z" />
+                </svg><span>HTML/CSS</span></div>
+              <!-- Tailwind: correct logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zM6.001 12c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" />
+                </svg><span>Tailwind</span></div>
+              <!-- Vue.js: correct V logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M24 1.61h-9.94L12 5.16 9.94 1.61H0l12 20.78zM12 14.08L5.16 2.23h4.43L12 6.41l2.41-4.18h4.43z" />
+                </svg><span>Vue.js</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Backend</h3>
+            <div class="logo-grid">
+              <!-- Node.js: correct hexagon logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.998 24a1.49 1.49 0 0 1-.745-.198l-2.37-1.408c-.354-.198-.181-.268-.065-.309.473-.164.568-.201 1.072-.486a.184.184 0 0 1 .18.013l1.82 1.081a.237.237 0 0 0 .217 0l7.095-4.098a.22.22 0 0 0 .109-.19V8.599a.22.22 0 0 0-.11-.19L12.11 4.314a.218.218 0 0 0-.218 0L4.8 8.41a.221.221 0 0 0-.11.19v8.19a.22.22 0 0 0 .11.19l1.944 1.124c1.055.528 1.702-.094 1.702-.72V9.48a.2.2 0 0 1 .2-.2h.872a.2.2 0 0 1 .2.2v8.004c0 1.409-.768 2.218-2.104 2.218-.41 0-.733 0-1.635-.445l-1.863-1.073a1.498 1.498 0 0 1-.745-1.297V8.599c0-.535.284-1.032.745-1.297L11.25.202a1.542 1.542 0 0 1 1.496 0l7.095 4.1A1.498 1.498 0 0 1 24 5.599v8.2a1.498 1.498 0 0 1-.745 1.297l-7.095 4.098a1.49 1.49 0 0 1-.75.2zM15.4 16.798c-3.1 0-3.749-1.424-3.749-2.62a.2.2 0 0 1 .2-.2h.888a.2.2 0 0 1 .2.169c.135.912.538 1.372 2.463 1.372 1.517 0 2.16-.343 2.16-1.147 0-.463-.182-.807-2.54-1.038-1.97-.196-3.186-.63-3.186-2.203 0-1.45 1.222-2.315 3.27-2.315 2.3 0 3.442.799 3.585 2.516a.2.2 0 0 1-.2.217h-.892a.2.2 0 0 1-.196-.162c-.224-.993-.77-1.311-2.298-1.311-1.692 0-1.888.59-1.888 1.03 0 .535.232.691 2.462.992 2.21.298 3.259.72 3.259 2.24 0 1.566-1.306 2.46-3.582 2.46z" />
+                </svg><span>Node.js</span></div>
+              <!-- Express: E letter icon -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M24 18.588a1.529 1.529 0 0 1-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 0 1-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 0 1 1.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 0 1 1.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 0 0 0 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 0 0 2.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 0 1-2.589 3.957 6.272 6.272 0 0 1-7.306-.933 6.575 6.575 0 0 1-1.64-3.858c-.013-.394-.015-.79-.013-1.185zm1.18-.724h8.222c-.122-3.246-2.277-4.979-4.827-4.979-2.975.302-3.145 3.565-3.395 4.979z" />
+                </svg><span>Express</span></div>
+              <!-- Django: correct D logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.146 0a11.158 11.158 0 0 0-7.895 3.27A11.13 11.13 0 0 0 0 11.18c0 4.125 2.239 7.733 5.732 9.726a.52.52 0 0 0 .25.065.512.512 0 0 0 .493-.367l.312-1.151a.522.522 0 0 0-.147-.523c-2.807-2.503-3.988-6.432-2.984-10.108.97-3.558 3.985-6.343 7.59-7.06C15.24.94 19.01 2.5 21.084 5.538c2.08 3.048 2.053 7.01-.063 10.024-1.21 1.726-3.021 2.964-5.05 3.39a6.06 6.06 0 0 1-1.165.108c-1.182 0-2.297-.427-3.133-1.201-.911-.844-1.35-1.957-1.235-3.126.227-2.274 2.225-3.979 4.507-3.923 1.96.044 3.546 1.561 3.635 3.507.064 1.372-.73 2.62-1.97 3.101a.515.515 0 0 0-.28.262.51.51 0 0 0-.012.379l.328 1.121a.52.52 0 0 0 .484.372.508.508 0 0 0 .196-.04c1.97-.773 3.276-2.652 3.188-4.718C21.41 10.958 19.112 8.77 16.29 8.7c-3.404-.084-6.31 2.36-6.643 5.742-.174 1.74.437 3.462 1.677 4.722.951.967 2.243 1.565 3.64 1.7.23.02.462.032.695.032.573 0 1.143-.07 1.699-.208 1.28-.32 2.454-.957 3.41-1.858a.508.508 0 0 0 .163-.374V18.4l.65 2.379a.519.519 0 0 0 .497.375.522.522 0 0 0 .247-.064C23.515 19.006 24 16.655 24 14.917c0-7.43-5.963-13.494-13.328-13.494L11.146 0z" />
+                </svg><span>Django</span></div>
+              <!-- GraphQL: correct diamond logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M14.051 2.751l4.935 2.85c.816-.48 1.875-.195 2.355.617.48.812.198 1.87-.617 2.35v5.704c.815.48 1.097 1.54.617 2.35-.48.812-1.54 1.097-2.355.617l-4.935 2.85c0 .942-.765 1.706-1.706 1.706-.942 0-1.706-.764-1.706-1.706l-4.935-2.85c-.817.48-1.875.195-2.355-.617-.48-.81-.198-1.87.617-2.35V8.568c-.815-.48-1.097-1.538-.617-2.35.48-.812 1.538-1.097 2.355-.617l4.935-2.85c0-.941.764-1.706 1.706-1.706.941 0 1.706.765 1.706 1.706zm-1.158 1.215a.571.571 0 0 1-.548 0L7.41 6.826l4.935 2.85 4.934-2.85-4.386-2.86zM6.55 7.876c0 .188.1.363.261.458l4.934 2.85V5.033L6.812 7.417a.533.533 0 0 0-.261.459zm10.898 0a.533.533 0 0 0-.262-.46l-4.934-2.382v6.15l4.934-2.85a.533.533 0 0 0 .262-.458zm-10.636 8.099l4.934 2.85v-5.702l-4.934 2.852zm5.753 2.85l4.934-2.85-4.934-2.851v5.7zm-6.29-3.977c-.162.095-.262.27-.262.458v.002c0 .187.1.362.261.458l.001-.002v-.916zm12.28.46a.533.533 0 0 0-.262-.46v.917c.162-.095.262-.27.262-.457z" />
+                </svg><span>GraphQL</span></div>
+              <!-- REST API: API plug icon -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M4.5 11.5A.5.5 0 0 1 5 11h1V9a3 3 0 0 1 6 0v1h1a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5v-5zM8 9v2h3V9a1.5 1.5 0 0 0-3 0zM2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm9.5 5.5A1.5 1.5 0 0 0 10 11v1.5a1.5 1.5 0 0 0 3 0V11a1.5 1.5 0 0 0-1.5-1.5zM20 8H4v12h16V8zM4 6h16V4H4v2z" />
+                </svg><span>REST API</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Blockchain</h3>
+            <div class="logo-grid">
+              <!-- Ethereum: correct diamond logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z" />
+                </svg><span>Ethereum</span></div>
+              <!-- Web3.js: W3 icon -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M3.933 4.5H0l4.773 15 3.727-10.5L12.273 19.5 17.046 4.5h-3.773L12 9.75 10.727 4.5H7.5l2.127 6-1.627 4.5-4.067-11z" />
+                  <path d="M18.5 4.5l-3.5 15h3.5L24 4.5z" opacity=".6" />
+                </svg><span>Web3.js</span></div>
+              <!-- Solidity: correct S diamond logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M14.19.227l-4.357 7.67h8.714zm-4.357 7.67L5.476.227H.003zm0 0L5.476 15.56.003.228zM9.833 7.897l4.357 7.663 4.357-7.663zm4.357 7.663l-4.357 7.67 4.357-7.67zm-4.357 7.67l-4.357-7.67h8.714z" />
+                </svg><span>Solidity</span></div>
+              <!-- IPFS: correct cube/cluster logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 0L2.18 6v12L12 24l9.82-6V6zm-.82 1.98l7.6 4.39-7.6 4.39-7.6-4.39zM3.59 7.78l7.6 4.38v8.77l-7.6-4.38zm8.82 13.15v-8.77l7.6-4.38v8.77z" />
+                </svg><span>IPFS</span></div>
+              <!-- Smart Contracts: shield icon -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5zm-1 3v2H9v2h2v4h2v-4h2v-2h-2V8h-2z" />
+                </svg><span>Smart Contracts</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Tools & DevOps</h3>
+            <div class="logo-grid">
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187" />
+                </svg><span>Git</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.186.186 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.184.185m2.92 2.716h2.12a.185.185 0 00.184-.186v-1.887a.185.185 0 00-.184-.185h-2.12a.186.186 0 00-.184.185v1.887c0 .102.082.186.184.186m5.893 0h2.118a.186.186 0 00.186-.186v-1.887a.185.185 0 00-.186-.185h-2.118a.184.184 0 00-.185.185v1.887c0 .102.083.186.185.186m0 2.715h2.118a.186.186 0 00.186-.185v-1.888a.185.185 0 00-.186-.185h-2.118a.184.184 0 00-.185.185v1.888c0 .102.083.185.185.185m-5.893 0h2.12a.185.185 0 00.184-.185v-1.888a.185.185 0 00-.184-.185h-2.12a.186.186 0 00-.184.185v1.888c0 .102.082.185.184.185m-2.964 0h2.12a.186.186 0 00.184-.185v-1.888a.185.185 0 00-.184-.185H5.136a.186.186 0 00-.186.185v1.888c0 .102.084.185.186.185m0-2.715h2.12a.186.186 0 00.184-.186v-1.887a.185.185 0 00-.184-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m2.964 0h2.12a.185.185 0 00.184-.186v-1.887a.185.185 0 00-.184-.185h-2.12a.186.186 0 00-.184.185v1.887c0 .102.082.186.184.186m-2.964-5.431h2.12a.186.186 0 00.184-.185V9.006a.185.185 0 00-.184-.186H5.136a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m11.787 2.716h2.119a.186.186 0 00.186-.186v-1.887a.185.185 0 00-.186-.185h-2.119a.184.184 0 00-.184.185v1.887c0 .102.083.186.184.186m0-2.716h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.184.186v1.887c0 .102.083.185.184.185M4.11 20.856c.03 1.002.895 1.798 1.898 1.798h12.39c1.003 0 1.868-.796 1.898-1.798L20.41 4.192H3.59l.52 16.664zm2.942-11.937h5.893v1.888H7.052v-1.888zm0 2.716h5.893v1.887H7.052V11.635zm0 2.715h5.893v1.888H7.052V14.35zm8.827-5.431h2.119v1.888h-2.12V8.919zm0 2.716h2.119v1.887h-2.12v-1.887zm0 2.715h2.119v1.888h-2.12V14.35z" />
+                </svg><span>Docker</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M18.75 0h-2.25A5.25 5.25 0 0 0 11.25 5.25v3a5.25 5.25 0 0 0 5.25 5.25h3A5.25 5.25 0 0 0 24 8.25v-3A5.25 5.25 0 0 0 18.75 0zm2.25 8.25a2.25 2.25 0 0 1-2.25 2.25h-3a2.25 2.25 0 0 1-2.25-2.25v-3A2.25 2.25 0 0 1 15.75 3h3A2.25 2.25 0 0 1 21 5.25v3zM5.25 0H3A5.25 5.25 0 0 0 0 5.25v2.25A5.25 5.25 0 0 0 5.25 12.75h3A5.25 5.25 0 0 0 13.5 7.5V5.25A5.25 5.25 0 0 0 8.25 0H5.25zM10.5 7.5a2.25 2.25 0 0 1-2.25 2.25h-3A2.25 2.25 0 0 1 3 7.5V5.25A2.25 2.25 0 0 1 5.25 3h3A2.25 2.25 0 0 1 10.5 5.25V7.5zm-3 4.5h-2A5.25 5.25 0 0 0 0 17.25v1.5A5.25 5.25 0 0 0 5.25 24h3A5.25 5.25 0 0 0 13.5 18.75v-1.5A5.25 5.25 0 0 0 8.25 12H7.5zm3 6.75a2.25 2.25 0 0 1-2.25 2.25h-3A2.25 2.25 0 0 1 3 18.75v-1.5A2.25 2.25 0 0 1 5.25 15h3A2.25 2.25 0 0 1 10.5 17.25v1.5zM20.25 12H18a5.25 5.25 0 0 0-5.25 5.25v1.5A5.25 5.25 0 0 0 18 24h2.25A5.25 5.25 0 0 0 24 18.75v-1.5A5.25 5.25 0 0 0 20.25 12zm2.25 6.75a2.25 2.25 0 0 1-2.25 2.25H18a2.25 2.25 0 0 1-2.25-2.25v-1.5A2.25 2.25 0 0 1 18 15h2.25A2.25 2.25 0 0 1 22.5 17.25v1.5z" />
+                </svg><span>AWS</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg><span>Linux</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z" />
+                </svg><span>CI/CD</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Databases</h3>
+            <div class="logo-grid">
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M17.128 0a10.134 10.134 0 0 0-2.755.403l-.1.03A14.014 14.014 0 0 0 12 1.348a13.977 13.977 0 0 0-2.273-.915c-2.875-.866-5.339-.572-6.605.732C2.085 2.223 1.74 3.24 1.817 4.46c.044.72.245 1.52.566 2.33l.013.03c.356.822.802 1.596 1.308 2.275l.04.05c.423.565.842 1.005 1.264 1.397.635.588 1.29.94 1.76 1.168a7.85 7.85 0 0 1-.47.446c-.4.352-.98.758-1.63 1.09-.616.318-1.3.575-1.977.677-.673.098-1.348.034-1.878-.255a2.52 2.52 0 0 1-.899-.878c-.274-.437-.43-.947-.538-1.46-.11-.514-.165-1.04-.212-1.52L1.12 9.7l-.008-.096C1.049 9.169 1 8.73 1 8.318c0-.6.077-1.2.155-1.8a14.78 14.78 0 0 1 .232-1.284C1.58 4.25 2.06 2.874 3.156 1.74 4.255.602 6.02.04 8.268.04c.717 0 1.473.083 2.262.255A13.8 13.8 0 0 1 12 .838a13.77 13.77 0 0 1 1.47-.543c.789-.172 1.545-.255 2.262-.255 2.248 0 4.013.562 5.112 1.7 1.096 1.134 1.577 2.51 1.769 3.494.08.42.145.864.181 1.308.036.444.036.888.036 1.332 0 .412-.049.85-.112 1.285l-.008.096-.04.316c-.047.48-.102 1.006-.212 1.52-.108.513-.264 1.023-.538 1.46-.275.437-.588.714-.9.878-.53.289-1.204.353-1.877.255-.677-.102-1.361-.359-1.977-.677-.65-.332-1.23-.738-1.63-1.09a7.85 7.85 0 0 1-.47-.446c.47-.228 1.125-.58 1.76-1.168.422-.392.841-.832 1.264-1.397l.04-.05c.506-.679.952-1.453 1.308-2.275l.013-.03c.321-.81.522-1.61.566-2.33.077-1.22-.268-2.237-1.305-3.293C21.467.572 19.003.278 16.128 1.144c-.078.022-.156.046-.233.072z" />
+                </svg><span>PostgreSQL</span></div>
+              <!-- MongoDB: correct leaf logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M17.193 9.555c-1.264-5.58-4.252-7.514-4.573-8.241-.286-.614-.422-.698-.622-.698s-.336.084-.622.698c-.321.727-3.309 2.661-4.573 8.241-.445 1.958-.445 3.867.022 5.814.444 1.899 1.378 3.476 2.66 4.617.148.129.295.251.44.365l.003.002c.234.182.466.34.692.468V24h2.796v-3.419c.226-.128.458-.286.692-.468l.003-.002c.145-.114.292-.236.44-.365 1.282-1.141 2.216-2.718 2.66-4.617.467-1.947.467-3.856.022-5.814z" />
+                </svg><span>MongoDB</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.274.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.182-.153zM5.86 12.257c-.193 0-.334.013-.465.047v1.447c.096.013.192.017.288.017.387 0 .71-.105.91-.338.183-.213.274-.497.274-.89 0-.347-.072-.6-.222-.773-.154-.178-.382-.51-.785-.51zm12.485 1.027c-.034-.208-.065-.416-.104-.624l-.026-.014c-.038.052-.077.108-.103.165-.148.317-.278.640-.41.96l.643-.487z" />
+                  <path
+                    d="M0 0v24h24V0H0zm11.33 11.618c.023.138.047.273.065.41.021.165.038.33.047.497.008.13.013.26.013.39v1.77c0 .12-.004.24-.013.36-.009.12-.022.239-.04.356a2.9 2.9 0 0 1-.16.612 1.63 1.63 0 0 1-.33.502c-.138.146-.304.268-.488.355-.185.088-.395.131-.62.131-.226 0-.44-.038-.633-.116a1.2 1.2 0 0 1-.476-.356 1.713 1.713 0 0 1-.3-.578 2.74 2.74 0 0 1-.104-.78V12.28l.003-.248c.004-.13.012-.258.023-.387.022-.256.066-.508.135-.752a1.72 1.72 0 0 1 .302-.603 1.34 1.34 0 0 1 .49-.389c.195-.093.42-.14.664-.14.24 0 .455.047.637.14.183.094.334.22.449.379.118.163.2.357.245.572zm7.81 5.048h-1.58l-2.034-3.203V16.666h-1.573V7.335h1.573v5.46l1.964-2.75h1.522l-2.108 2.86 2.236 3.761zM3.66 16.666H2.087V7.335H3.66v9.33zm7.267 0H6.2V7.335h1.615v8.015h3.112v1.316z" />
+                </svg><span>MySQL</span></div>
+              <!-- Redis: correct stacked discs logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M10.5 6.007L7.055 7.748l3.445 1.74 3.445-1.74L10.5 6.007zM3.09 9.82l3.445 1.74V15.3L3.09 13.56V9.82zm14.82 0v3.74l-3.445 1.74v-3.74L17.91 9.82zM10.5 3l-9 4.55v9.1l9 4.35 9-4.35v-9.1L10.5 3zM5.12 19.52l5.38 2.48 5.38-2.48-5.38-2.3-5.38 2.3z" />
+                </svg><span>Redis</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
+                </svg><span>SQL DBs</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Practices</h3>
+            <div class="logo-grid">
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C.199 12.89.812 14 1.9 14h8.596l.04 8.964c.015.986 1.26 1.41 1.874.637l9.262-11.65c.565-.84-.048-1.95-1.136-1.95H12.44l-.54-8.965z" />
+                </svg><span>Agile</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg><span>TDD</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                </svg><span>Clean Code</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M3 3h4v4H3zm0 7h4v4H3zm0 7h4v4H3zm7-14h4v4h-4zm0 7h4v4h-4zm0 7h4v4h-4zm7 0h4v4h-4zm0-7h4v4h-4zm0-7h4v4h-4z"
+                    opacity=".3" />
+                  <path
+                    d="M2 2v5h2V4h1V2zm5 0v2h1v1h2V2zm5 0v2h1v1h2V2zm5 0v5h2V4h-1V2zM2 9v6h2v-4h1V9zm19 0v2h-1v2h-1v2h2V9zM2 17v5h5v-2H4v-1H2zm5 3v2h5v-2zm7 0v2h5v-5h-2v3h-1v-1h-2zm0-11v2h1v2h2V9z" />
+                </svg><span>System Design</span></div>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <h3>Platforms & OS</h3>
+            <div class="logo-grid">
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M0 0h11.377v11.372H0zm12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zm12.623 0H24V24H12.623z" />
+                </svg><span>Windows</span></div>
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a5.745 5.745 0 0 0 .762 2.211c1.083 1.927 3.26 3.293 5.244 3.544 1.986.255 3.81-.605 5.203-1.959 1.39-1.36 2.302-3.051 2.674-4.885.08-.384.13-.792.13-1.2 0-1.084-.297-2.1-.85-3.019A5.617 5.617 0 0 0 17.6 9.78c-.85-.676-1.862-1.185-2.865-1.498-.86-.268-1.7-.393-2.418-.393-1.53 0-2.665.543-3.163 1.462-.398.73-.484 1.612-.293 2.572.232 1.155.855 2.393 1.623 3.485.381.543.8 1.066 1.256 1.54.434.456.886.872 1.35 1.25.192.158.386.314.582.47.35.27.684.527 1.009.78.244.195.49.39.73.584l.52.42c.073.06.145.12.218.18.07.062.146.122.223.183.084.067.17.135.26.203.147.112.304.22.466.327.163.107.331.212.506.314l.016.01a7.17 7.17 0 0 0 3.598.965c.617 0 1.222-.098 1.802-.28 2.168-.673 3.8-2.638 4.316-5.27.105-.534.158-1.093.158-1.661 0-3.13-1.54-6.06-4.004-8.12A12.4 12.4 0 0 0 12.504 0zm.16 2.028c.285.005.598.04.943.1a10.386 10.386 0 0 1 5.4 2.874 10.386 10.386 0 0 1 3.24 7.048c.024.41.012.817-.028 1.208-.332 3.197-2.403 5.34-4.864 5.34-.434 0-.87-.063-1.302-.188-.9-.264-1.733-.754-2.52-1.407a17.4 17.4 0 0 1-.77-.68 18.15 18.15 0 0 1-.685-.71 16.36 16.36 0 0 1-1.09-1.428c-.609-.91-1.065-1.84-1.206-2.613-.1-.543-.06-1.042.127-1.427.27-.56.922-.936 1.898-.936.517 0 1.13.095 1.832.313.79.246 1.617.65 2.337 1.217.583.457 1.097.991 1.444 1.613.318.57.501 1.208.501 1.864 0 .264-.027.527-.08.793-.237 1.196-.834 2.354-1.735 3.225-.897.866-2.098 1.462-3.502 1.285-1.43-.18-2.97-1.124-3.84-2.641a4.03 4.03 0 0 1-.54-1.571c-.08-.499-.009-1.025.177-1.557.423-1.234 1.421-2.638 2.2-3.543.6-.71 1.075-1.427 1.42-2.131.398-.8.568-1.583.49-2.343-.05-.486-.223-.892-.494-1.182-.27-.288-.63-.45-1.048-.45-.303 0-.634.085-.99.254-.355.169-.728.436-1.112.775-.756.672-1.55 1.678-2.268 2.786a12.87 12.87 0 0 0-1.62 3.88 5.7 5.7 0 0 0-.096.955c-.002.18.007.36.025.535.08.76.324 1.459.726 2.077.773 1.19 2.085 2.073 3.659 2.274.256.033.514.05.773.05.938 0 1.866-.246 2.692-.705.826-.46 1.55-1.134 2.095-1.977.546-.843.895-1.845.895-2.944 0-.937-.235-1.833-.665-2.648-.43-.814-1.062-1.545-1.853-2.162-.91-.71-1.948-1.2-2.938-1.503a8.43 8.43 0 0 0-2.397-.4c-1.504 0-2.808.509-3.633 1.55-.614.78-.9 1.766-.829 2.824.058.846.337 1.777.79 2.707.45.927 1.077 1.848 1.781 2.718.708.874 1.476 1.685 2.237 2.38.762.698 1.51 1.28 2.195 1.686 1.037.614 2.003.885 2.87.885h.016c.76 0 1.44-.195 2.007-.576.568-.38 1.004-.94 1.27-1.668.267-.73.362-1.62.244-2.626-.177-1.497-.82-3.04-1.797-4.456-.975-1.413-2.257-2.66-3.718-3.53C14.28 2.435 13.336 2.136 12.5 2.03c-.082-.01-.16-.014-.236-.014l.4.012z" />
+                </svg><span>Linux</span></div>
+              <!-- macOS: correct Apple logo -->
+              <div class="logo-item"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z" />
+                </svg><span>macOS</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="divider fade-up"><span class="divider-label">What I've built</span><span
+            class="divider-line"></span></div>
+        <h2 class="section-title fade-up">Featured <span class="outline">Projects</span></h2>
+        <div class="projects-grid">
+          <div class="project-card fade-up">
+            <div class="project-num">01</div>
+            <h3>E-Commerce Platform</h3>
+            <p>Full-featured online store with real-time inventory, payment integration, and an admin dashboard.</p>
+            <div class="project-stack"><span class="tag">React</span><span class="tag">Node.js</span><span
+                class="tag">PostgreSQL</span><span class="tag">Stripe</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">02</div>
+            <h3>Task Management API</h3>
+            <p>RESTful API for team productivity with role-based access, real-time notifications, and analytics.</p>
+            <div class="project-stack"><span class="tag">Django</span><span class="tag">PostgreSQL</span><span
+                class="tag">Redis</span><span class="tag">Docker</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">03</div>
+            <h3>Real-Time Chat App</h3>
+            <p>Scalable messaging app supporting thousands of concurrent users, file sharing, and history.</p>
+            <div class="project-stack"><span class="tag">Next.js</span><span class="tag">Socket.io</span><span
+                class="tag">MongoDB</span><span class="tag">AWS</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-more" onclick="showPage('projects-page')">View All 10 Projects</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="divider fade-up"><span class="divider-label">Where I've worked</span><span
+            class="divider-line"></span></div>
+        <h2 class="section-title fade-up">Work <span class="outline">Experience</span></h2>
+        <div class="timeline">
+          <div class="exp-item fade-up">
+            <div class="exp-dot"></div>
+            <div class="exp-date">2026 – Present</div>
+            <div class="exp-title">Software Engineer</div>
+            <div class="exp-company">Aurevia Tech · Dhaka, Bangladesh</div>
+            <ul class="exp-desc">
+              <li>Designing and shipping REST APIs serving 50k+ daily active users.</li>
+              <li>Reduced API response time by 40% through query optimization and caching.</li>
+              <li>Led frontend migration from legacy codebase to React + TypeScript.</li>
+              <li>Mentoring junior developers and conducting code reviews.</li>
+            </ul>
+          </div>
+          <div class="exp-item fade-up">
+            <div class="exp-dot"></div>
+            <div class="exp-date">2025 – 2026</div>
+            <div class="exp-title">Intern – Full Stack Developer</div>
+            <div class="exp-company">StayKoro Limited · Dhaka, Bangladesh</div>
+            <ul class="exp-desc">
+              <li>Built and maintained multiple client-facing web applications in an Agile environment.</li>
+              <li>Implemented CI/CD pipelines cutting deployment time by 60%.</li>
+              <li>Collaborated closely with product and design teams to ship high-quality features on tight timelines.
+              </li>
+            </ul>
+          </div>
+          <div class="exp-item fade-up">
+            <div class="exp-dot"></div>
+            <div class="exp-date">2021 – 2025</div>
+            <div class="exp-title">Freelance Web Developer</div>
+            <div class="exp-company">Upwork · Dhaka, Bangladesh</div>
+            <ul class="exp-desc">
+              <li>Assisted in building responsive frontends using HTML, CSS, and JavaScript.</li>
+              <li>Developed backend features in Node.js and contributed to database schema design.</li>
+              <li>Gained hands-on experience with production deployment workflows.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="divider fade-up"><span class="divider-label">Let's connect</span><span class="divider-line"></span>
+        </div>
+        <h2 class="section-title fade-up">Get In <span class="outline">Touch</span></h2>
+        <p class="contact-sub fade-up">Open to new opportunities, freelance projects, and interesting collaborations.
+        </p>
+        <a class="contact-email fade-up" href="https://mail.google.com/mail/?view=cm&fs=1&to=alvee678876@gmail.com"
+          target="_blank" onclick="copyEmail(event, this, 'alvee678876@gmail.com')">alvee678876@gmail.com</a>
+        <div class="social-links fade-up" style="gap:3.5rem">
+          <a class="social-link" href="https://github.com/ALVEE3" title="GitHub" target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)">
+              <path
+                d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.57.1.78-.25.78-.55v-2c-3.19.69-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.03 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 2.87-.39c.97.01 1.95.13 2.87.39 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.23 2.74.11 3.03.74.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.13v3.16c0 .31.2.66.79.55C20.21 21.41 23.5 17.1 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+            </svg>
+          </a>
+          <a class="social-link" href="https://www.linkedin.com/in/ahadul-islam-chowdhury-1805221b7/" title="LinkedIn"
+            target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)">
+              <path
+                d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.55V9H3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+            </svg>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/alvee.chowdhury.82366" title="Facebook" target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)">
+              <path
+                d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+    <footer>&copy; 2026 &nbsp;·&nbsp; Ahadul Islam Chowdhury</footer>
+  </div>
+
+  <!-- ========== ALL PROJECTS PAGE ========== -->
+  <div id="projects-page" class="page">
+    <nav>
+      <div class="nav-logo" onclick="showPage('main-page')">Alvee Chowdhury<span>.</span></div>
+      <ul class="nav-links">
+        <li><a onclick="showPage('main-page')">Home</a></li>
+        <li><a onclick="showPage('about-page')">Background</a></li>
+      </ul>
+    </nav>
+    <div class="page-hero">
+      <div class="container">
+        <div class="back-btn" onclick="showPage('main-page')">Back to Home</div>
+        <h1 class="page-title">All <span class="outline">Projects</span></h1>
+        <p class="page-sub">A full showcase of 10 projects — from web apps to blockchain solutions.</p>
+      </div>
+    </div>
+    <section style="background:var(--bg);padding:4rem 2rem">
+      <div class="container">
+        <div class="all-projects-grid">
+          <div class="project-card fade-up">
+            <div class="project-num">01</div>
+            <h3>E-Commerce Platform</h3>
+            <p>Full-featured online store with real-time inventory, payment integration, and admin dashboard.</p>
+            <div class="project-stack"><span class="tag">React</span><span class="tag">Node.js</span><span
+                class="tag">PostgreSQL</span><span class="tag">Stripe</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">02</div>
+            <h3>Task Management API</h3>
+            <p>RESTful API with role-based access control, real-time notifications, and analytics endpoints.</p>
+            <div class="project-stack"><span class="tag">Django</span><span class="tag">PostgreSQL</span><span
+                class="tag">Redis</span><span class="tag">Docker</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">03</div>
+            <h3>Real-Time Chat App</h3>
+            <p>Scalable messaging app supporting thousands of concurrent users with file sharing and history.</p>
+            <div class="project-stack"><span class="tag">Next.js</span><span class="tag">Socket.io</span><span
+                class="tag">MongoDB</span><span class="tag">AWS</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">04</div>
+            <h3>NFT Marketplace</h3>
+            <p>Decentralized marketplace for minting, buying, and selling NFTs with wallet integration and on-chain
+              royalties.</p>
+            <div class="project-stack"><span class="tag">Solidity</span><span class="tag">React</span><span
+                class="tag">Web3.js</span><span class="tag">IPFS</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">05</div>
+            <h3>DeFi Lending Protocol</h3>
+            <p>Smart contract protocol enabling decentralized lending and borrowing with automated interest rates.</p>
+            <div class="project-stack"><span class="tag">Solidity</span><span class="tag">Ethereum</span><span
+                class="tag">Hardhat</span><span class="tag">Next.js</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">06</div>
+            <h3>Portfolio Landing Page</h3>
+            <p>This very portfolio — a bold monochrome + gold personal site built with vanilla HTML/CSS/JS.</p>
+            <div class="project-stack"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                class="tag">JavaScript</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">07</div>
+            <h3>AI Blog Generator</h3>
+            <p>Web app that uses an LLM API to generate SEO-optimized blog posts from a single topic prompt.</p>
+            <div class="project-stack"><span class="tag">Python</span><span class="tag">FastAPI</span><span
+                class="tag">React</span><span class="tag">OpenAI</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">08</div>
+            <h3>Inventory Dashboard</h3>
+            <p>Real-time inventory tracking dashboard with chart visualizations, alerts, and CSV export.</p>
+            <div class="project-stack"><span class="tag">Vue.js</span><span class="tag">Node.js</span><span
+                class="tag">MySQL</span><span class="tag">Chart.js</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">09</div>
+            <h3>Job Board Platform</h3>
+            <p>Full-stack job listing platform with employer posting, applicant tracking, and email notifications.</p>
+            <div class="project-stack"><span class="tag">Next.js</span><span class="tag">Prisma</span><span
+                class="tag">PostgreSQL</span><span class="tag">Tailwind</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+          <div class="project-card fade-up">
+            <div class="project-num">10</div>
+            <h3>URL Shortener Service</h3>
+            <p>High-performance URL shortener with analytics, QR code generation, and custom alias support.</p>
+            <div class="project-stack"><span class="tag">Go</span><span class="tag">Redis</span><span
+                class="tag">React</span><span class="tag">Docker</span></div>
+            <div class="project-links"><a href="#">Live Demo</a><a href="#">GitHub</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>&copy; 2026 &nbsp;·&nbsp; Ahadul Islam Chowdhury</footer>
+  </div>
+
+  <!-- ========== ABOUT / BACKGROUND PAGE ========== -->
+  <div id="about-page" class="page">
+    <nav>
+      <div class="nav-logo" onclick="showPage('main-page')">Alvee Chowdhury<span>.</span></div>
+      <ul class="nav-links">
+        <li><a onclick="showPage('main-page')">Home</a></li>
+        <li><a onclick="showPage('projects-page')">Projects</a></li>
+      </ul>
+    </nav>
+    <div class="page-hero">
+      <div class="container">
+        <div class="back-btn" onclick="showPage('main-page')">Back to Home</div>
+        <h1 class="page-title">Full <span class="outline">Background</span></h1>
+        <p class="page-sub">Education, qualifications, and work history — the full story.</p>
+      </div>
+    </div>
+    <section style="background:var(--bg);padding:4rem 2rem">
+      <div class="container">
+
+        <div class="edu-section-label">Education</div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2021 – 2026</div>
+          <div class="edu-degree">B.Sc. in Computer Science & Engineering</div>
+          <div class="edu-institution">American International University - Bangladesh (AIUB) · Dhaka, Bangladesh</div>
+          <div class="edu-desc">Focused on algorithms, data structures, software engineering, and distributed systems.
+            Graduated with honours. Thesis on Software Bugs Prediction Using Deep Learning Techniques.</div>
+        </div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2018 – 2020</div>
+          <div class="edu-degree">Higher Secondary Certificate (HSC) — Science</div>
+          <div class="edu-institution">Tejgaon College · Dhaka, Bangladesh</div>
+          <div class="edu-desc">Completed higher secondary education with a focus on Physics, Chemistry, Mathematics,
+            and Biology. </div>
+        </div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2009 – 2017</div>
+          <div class="edu-degree">Secondary School Certificate (SSC) — Science</div>
+          <div class="edu-institution">Holy Crescent School & College · Feni, Bangladesh</div>
+          <div class="edu-desc">Completed secondary education with distinction. Participated in national
+            Math Olympiad and science fairs.</div>
+        </div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2004 – 2008</div>
+          <div class="edu-degree">Elementary School</div>
+          <div class="edu-institution">Brisbane International School (English Medium) · Feni, Bangladesh</div>
+          <div class="edu-desc">Foundation years. Developed early interest in mathematics and logical problem solving.
+            Active participant in drawing and science competitions.</div>
+        </div>
+
+        <div class="edu-section-label" style="margin-top:4rem">Work Experience</div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2026 – Present</div>
+          <div class="edu-degree">Software Engineer</div>
+          <div class="edu-institution">Aurevia Tech · Dhaka, Bangladesh</div>
+          <div class="edu-desc">Designing and shipping REST APIs serving 50k+ daily active users. Reduced API response
+            time by 40% through query optimization and caching. Led frontend migration from legacy codebase to React +
+            TypeScript. Mentoring junior developers and conducting code reviews.</div>
+        </div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2025 – 2026</div>
+          <div class="edu-degree">Intern – Full Stack Developer</div>
+          <div class="edu-institution">StayKoro Limited · Dhaka, Bangladesh</div>
+          <div class="edu-desc">Built and maintained multiple client-facing web applications in an Agile environment.
+            Implemented CI/CD pipelines cutting deployment time by 60%. Collaborated closely with product and design
+            teams to ship high-quality features on tight timelines.</div>
+        </div>
+
+        <div class="edu-item fade-up">
+          <div class="edu-years">2021 – 2025</div>
+          <div class="edu-degree">Freelance Web Developer</div>
+          <div class="edu-institution">Upwork · Dhaka, Bangladesh</div>
+          <div class="edu-desc">Assisted in building responsive frontends using HTML, CSS, and JavaScript. Developed
+            backend features in Node.js and contributed to database schema design. Gained hands-on experience with
+            production deployment workflows.</div>
+        </div>
+
+      </div>
+    </section>
+    <footer>&copy; 2026 &nbsp;·&nbsp; Ahadul Islam Chowdhury</footer>
+  </div>
+
+  <!-- ALVEE GAME OVERLAYS -->
+  <div id="game-ui">
+    <div id="game-hud">
+      <div id="game-timer">0:30</div>
+      <div id="game-hits">0 / 10</div>
+    </div>
+    <div id="game-tank">
+      <div class="tank-gun"></div>
+      <div class="tank-turret"></div>
+      <div class="tank-base"></div>
+    </div>
+  </div>
+
+  <div id="start-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Let's Play!</h2>
+      <p style="margin-bottom: 15px; color: var(--muted);">Enter your name to start:</p>
+      <input type="text" id="player-name" placeholder="Your Name" />
+      <button class="btn btn-primary" id="start-game-btn" style="width:100%">Start Game</button>
+    </div>
+  </div>
+
+  <div id="message-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 id="message-title"></h2>
+      <p id="message-desc" style="color: var(--muted); margin-bottom: 20px;"></p>
+      <button class="btn btn-primary" id="close-msg-btn" style="width:100%">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function showCopied(el) {
+      if (el.dataset.copying) return;
+      el.dataset.copying = true;
+      const originalText = el.innerText;
+      el.innerText = 'Copied to clipboard!';
+      setTimeout(() => {
+        el.innerText = originalText;
+        delete el.dataset.copying;
+      }, 2000);
+    }
+    function copyEmail(e, el, email) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email).then(() => showCopied(el)).catch(() => fallbackCopy(email, el));
+      } else {
+        fallbackCopy(email, el);
+      }
+    }
+    function fallbackCopy(text, el) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try { document.execCommand('copy'); showCopied(el); } catch (err) { }
+      document.body.removeChild(textArea);
+    }
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(initObs, 100);
+    }
+    function goTo(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function initObs() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } })
+      }, { threshold: .1 });
+      document.querySelectorAll('.page.active .fade-up:not(.visible)').forEach(el => obs.observe(el));
+    }
+    initObs();
+  </script>
+
+  <!-- SPIDER LOGO & ALVEE GAME LOGIC -->
+  <script>
+    (function () {
+      const spider = document.createElement('div');
+      spider.innerHTML = `
+      <svg id="spider-svg" viewBox="0 0 100 100" style="width: 50px; height: 50px; filter: drop-shadow(0 0 8px var(--gold-glow));">
+        <g stroke="var(--gold)" stroke-width="3" fill="var(--bg)" stroke-linejoin="round" stroke-linecap="round">
+          <!-- Center A -->
+          <path d="M 45 28 L 55 28 L 68 68 L 58 68 L 54 54 L 46 54 L 42 68 L 32 68 Z M 50 36 L 47 48 L 53 48 Z" />
+          <!-- Legs -->
+          <g id="leg-ul" style="transform-origin: 30px 30px;"><polygon points="20,20 25,35 28,32 25,25 32,28 35,25" /></g>
+          <g id="leg-ur" style="transform-origin: 70px 30px;"><polygon points="80,20 75,35 72,32 75,25 68,28 65,25" /></g>
+          <g id="leg-ll" style="transform-origin: 28px 75px;"><polygon points="10,90 23,67 33,73" /></g>
+          <g id="leg-lr" style="transform-origin: 72px 75px;"><polygon points="90,90 77,67 67,73" /></g>
+        </g>
+      </svg>
+      `;
+      spider.style.position = 'fixed';
+      spider.style.pointerEvents = 'none';
+      spider.style.zIndex = '9999';
+      spider.style.transform = 'translate(-50%, -50%)';
+      spider.style.left = (window.innerWidth / 2) + 'px';
+      spider.style.top = (window.innerHeight / 2) + 'px';
+      document.body.appendChild(spider);
+
+      // Web Audio API Context
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      let audioCtx;
+
+      function initAudio() {
+        if (!audioCtx) {
+          audioCtx = new AudioContext();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      }
+
+      function playSound(type) {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'shoot') {
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'hit') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(150, now);
+          osc.frequency.exponentialRampToValueAtTime(50, now + 0.1);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'win') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.setValueAtTime(554, now + 0.2);
+          osc.frequency.setValueAtTime(659, now + 0.4);
+          osc.frequency.setValueAtTime(880, now + 0.6);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.linearRampToValueAtTime(0, now + 1);
+          osc.start(now);
+          osc.stop(now + 1);
+        } else if (type === 'lose') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(300, now);
+          osc.frequency.linearRampToValueAtTime(100, now + 1);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.linearRampToValueAtTime(0, now + 1);
+          osc.start(now);
+          osc.stop(now + 1);
+        } else if (type === 'revive') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(200, now);
+          osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.linearRampToValueAtTime(0, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      }
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+
+      // Game State
+      let alveeState = 'FOLLOWING'; // FOLLOWING, PLAYING, DEAD
+      let playerName = '';
+      let hits = 0;
+      let timeLeft = 30;
+      let timerInterval;
+      let bullets = [];
+
+      let spiderX = window.innerWidth / 2;
+      let spiderY = window.innerHeight / 2;
+      let spiderAngle = 0;
+      let crawlPhase = 0;
+      let deadShakeInterval;
+
+      // DOM Elements
+      const tank = document.getElementById('game-tank');
+      const ui = document.getElementById('game-ui');
+      const timerEl = document.getElementById('game-timer');
+      const hitsEl = document.getElementById('game-hits');
+      const playBtn = document.getElementById('lets-play-btn');
+      const startModal = document.getElementById('start-modal');
+      const msgModal = document.getElementById('message-modal');
+      const nameInput = document.getElementById('player-name');
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (alveeState === 'PLAYING') {
+          tank.style.left = mouseX + 'px';
+        }
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (alveeState === 'PLAYING' && e.touches.length > 0) {
+          mouseX = e.touches[0].clientX;
+          tank.style.left = mouseX + 'px';
+        }
+      }, { passive: true });
+
+      window.addEventListener('mousedown', handleShoot);
+      window.addEventListener('touchstart', handleShoot, { passive: true });
+
+      function handleShoot(e) {
+        if (alveeState !== 'PLAYING') return;
+        if (e.target.closest('.modal-overlay')) return;
+
+        initAudio();
+        playSound('shoot');
+
+        const bullet = document.createElement('div');
+        bullet.className = 'bullet';
+        const tankRect = tank.getBoundingClientRect();
+        let bx = tankRect.left + tankRect.width / 2 - 2;
+        let by = tankRect.top;
+        bullet.style.left = bx + 'px';
+        bullet.style.top = by + 'px';
+        document.body.appendChild(bullet);
+        bullets.push({ el: bullet, x: bx, y: by });
+      }
+
+      if (playBtn) {
+        playBtn.addEventListener('click', () => {
+          if (alveeState === 'PLAYING') {
+            const toast = document.createElement('div');
+            toast.className = 'game-toast';
+            toast.innerText = 'You Fool! You\'re running out of Time';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+            return;
+          }
+          if (alveeState === 'DEAD') {
+            showMessage('Alvee is dead! Already', 'Click the dead character to bring it alive again.');
+            return;
+          }
+          startModal.style.display = 'flex';
+          nameInput.focus();
+        });
+      }
+
+      document.getElementById('start-game-btn').addEventListener('click', () => {
+        playerName = nameInput.value.trim() || 'Player';
+        startModal.style.display = 'none';
+        startGame();
+      });
+
+      document.getElementById('close-msg-btn').addEventListener('click', () => {
+        msgModal.style.display = 'none';
+      });
+
+      spider.addEventListener('click', () => {
+        if (alveeState === 'DEAD') {
+          initAudio();
+          playSound('revive');
+          clearInterval(deadShakeInterval);
+          spider.classList.remove('shake');
+          spider.style.pointerEvents = 'none';
+          spider.style.cursor = 'default';
+
+          // Convert coordinates back to fixed (viewport-relative)
+          // We need to subtract current scroll to get back to viewport space
+          spiderX = spiderX - window.scrollX;
+          spiderY = spiderY - window.scrollY;
+          
+          spider.style.position = 'fixed';
+          spider.style.left = `${spiderX}px`;
+          spider.style.top = `${spiderY}px`;
+
+          // Reset dead visual effects
+          svg.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.6s ease, opacity 0.6s ease';
+          svg.style.transform = `rotate(${spiderAngle}deg)`;
+          svg.style.filter = 'drop-shadow(0 0 8px var(--gold-glow))';
+          svg.style.opacity = '1';
+          
+          setTimeout(() => { 
+            svg.style.transition = ''; 
+          }, 600);
+
+          alveeState = 'FOLLOWING';
+        }
+      });
+
+      function startGame() {
+        initAudio();
+        alveeState = 'PLAYING';
+        hits = 0;
+        timeLeft = 30;
+        bullets.forEach(b => b.el.remove());
+        bullets = [];
+        updateHUD();
+        ui.style.display = 'block';
+        tank.style.left = mouseX + 'px';
+
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          updateHUD();
+          if (timeLeft <= 0) {
+            endGame(false);
+          }
+        }, 1000);
+      }
+
+      function updateHUD() {
+        timerEl.innerText = `0:${timeLeft.toString().padStart(2, '0')}`;
+        hitsEl.innerText = `${hits} / 10`;
+      }
+
+      function endGame(win) {
+        clearInterval(timerInterval);
+        ui.style.display = 'none';
+        bullets.forEach(b => b.el.remove());
+        bullets = [];
+
+        if (win) {
+          playSound('win');
+          alveeState = 'DEAD';
+
+          // Capture exact current position and convert to absolute (page-relative)
+          const rect = spider.getBoundingClientRect();
+          spiderX = rect.left + window.scrollX + rect.width / 2;
+          spiderY = rect.top + window.scrollY + rect.height / 2;
+          
+          spider.style.position = 'absolute';
+          spider.style.left = `${spiderX}px`;
+          spider.style.top = `${spiderY}px`;
+
+          // Apply "dead" visual state: flip and dim
+          svg.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.8s ease, opacity 0.8s ease';
+          svg.style.transform = `rotate(${spiderAngle + 180}deg) scale(0.9)`;
+          svg.style.filter = 'drop-shadow(0 0 10px rgba(255,0,0,0.2)) grayscale(1) brightness(0.4)';
+          svg.style.opacity = '0.7';
+          
+          // Curl legs inward for a more "dead" look
+          legUL.style.transform = 'rotate(70deg)';
+          legUR.style.transform = 'rotate(-70deg)';
+          legLL.style.transform = 'rotate(60deg)';
+          legLR.style.transform = 'rotate(-60deg)';
+
+          spider.style.pointerEvents = 'auto';
+          spider.style.cursor = 'pointer';
+          
+          showMessage(`You Won! ${playerName}`, 'Alvee has been defeated. He is lying dead at the site of his defeat. Click him to revive.');
+          createFireworks();
+
+          // Periodic twitching animation
+          deadShakeInterval = setInterval(() => {
+            spider.classList.add('shake');
+            setTimeout(() => spider.classList.remove('shake'), 200);
+          }, 1800);
+
+        } else {
+          playSound('lose');
+          alveeState = 'FOLLOWING';
+          showMessage('Game Over', 'You Loser! Hahaha');
+          createEmojis();
+        }
+      }
+
+      function showMessage(title, desc) {
+        document.getElementById('message-title').innerText = title;
+        document.getElementById('message-desc').innerText = desc;
+        msgModal.style.display = 'flex';
+      }
+
+      function createEmojis() {
+        for (let i = 0; i < 30; i++) {
+          setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.innerText = '😂';
+            emoji.className = 'emoji-rain';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '-50px';
+            emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 4000);
+          }, i * 100);
+        }
+      }
+
+      function createFireworks() {
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            const fw = document.createElement('div');
+            fw.className = 'firework';
+            fw.style.left = Math.random() * 100 + 'vw';
+            fw.style.top = Math.random() * 100 + 'vh';
+            fw.style.background = ['var(--gold)', 'var(--gold-light)', 'var(--gold-dark)'][Math.floor(Math.random() * 3)];
+            fw.style.boxShadow = `0 0 10px ${fw.style.background}`;
+            document.body.appendChild(fw);
+            setTimeout(() => fw.remove(), 1000);
+          }, i * 200);
+        }
+      }
+
+      const legUL = document.getElementById('leg-ul');
+      const legUR = document.getElementById('leg-ur');
+      const legLL = document.getElementById('leg-ll');
+      const legLR = document.getElementById('leg-lr');
+      const svg = document.getElementById('spider-svg');
+
+      let playTargetX = window.innerWidth / 2;
+      let playTargetY = window.innerHeight / 2;
+
+      function animate() {
+        // Bullet Logic
+        for (let i = bullets.length - 1; i >= 0; i--) {
+          let b = bullets[i];
+          b.y -= 10;
+          b.el.style.top = b.y + 'px';
+          if (b.y < -20) {
+            b.el.remove();
+            bullets.splice(i, 1);
+            continue;
+          }
+
+          if (alveeState === 'PLAYING') {
+            const dx = b.x - spiderX;
+            const dy = b.y - spiderY;
+            if (Math.sqrt(dx * dx + dy * dy) < 30) {
+              playSound('hit');
+              b.el.remove();
+              bullets.splice(i, 1);
+              hits++;
+              updateHUD();
+
+              svg.style.filter = 'drop-shadow(0 0 15px red) hue-rotate(90deg)';
+              setTimeout(() => {
+                svg.style.filter = 'drop-shadow(0 0 8px var(--gold-glow))';
+              }, 100);
+
+              if (hits >= 10) {
+                endGame(true);
+                break;
+              }
+            }
+          }
+        }
+
+        // Spider Movement
+        let targetX = mouseX;
+        let targetY = mouseY;
+
+        if (alveeState === 'PLAYING') {
+          const distToTarget = Math.sqrt(Math.pow(playTargetX - spiderX, 2) + Math.pow(playTargetY - spiderY, 2));
+          if (Math.random() < 0.02 || distToTarget < 10) {
+            playTargetX = Math.random() * (window.innerWidth - 100) + 50;
+            playTargetY = Math.random() * (window.innerHeight - 200) + 50;
+          }
+          targetX = playTargetX;
+          targetY = playTargetY;
+        }
+
+        if (alveeState !== 'DEAD') {
+          const dx = targetX - spiderX;
+          const dy = targetY - spiderY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist > 5) {
+            let speed = alveeState === 'PLAYING' ? 8 : Math.min(dist * 0.08, 6);
+            if (alveeState === 'PLAYING') speed = Math.min(speed, dist);
+
+            spiderX += (dx / dist) * speed;
+            spiderY += (dy / dist) * speed;
+
+            const targetAngle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+            let angleDiff = targetAngle - spiderAngle;
+            angleDiff = ((angleDiff + 180) % 360 + 360) % 360 - 180;
+            spiderAngle += angleDiff * 0.2;
+
+            crawlPhase += speed * 0.20;
+            const swing = Math.sin(crawlPhase) * 25;
+
+            legUL.style.transform = `rotate(${swing}deg)`;
+            legLR.style.transform = `rotate(${swing}deg)`;
+            legUR.style.transform = `rotate(${-swing}deg)`;
+            legLL.style.transform = `rotate(${-swing}deg)`;
+          } else {
+            legUL.style.transform = `rotate(0deg)`;
+            legUR.style.transform = `rotate(0deg)`;
+            legLL.style.transform = `rotate(0deg)`;
+            legLR.style.transform = `rotate(0deg)`;
+          }
+
+          spider.style.left = `${spiderX}px`;
+          spider.style.top = `${spiderY}px`;
+          svg.style.transform = `rotate(${spiderAngle}deg)`;
+        }
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // === WELCOME BUBBLE SEQUENCE ===
+      function showBubble(text, duration) {
+        return new Promise(resolve => {
+          const bubble = document.createElement('div');
+          bubble.className = 'alvee-bubble';
+          bubble.innerHTML = `<div class="alvee-bubble-inner">${text}</div>`;
+          document.body.appendChild(bubble);
+
+          function positionBubble() {
+            const bw = bubble.offsetWidth;
+            bubble.style.left = (spiderX - bw / 2) + 'px';
+            bubble.style.top = (spiderY - 65) + 'px';
+          }
+
+          positionBubble();
+          const tracker = setInterval(positionBubble, 16);
+
+          // Small delay then show
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              bubble.classList.add('show');
+            });
+          });
+
+          setTimeout(() => {
+            bubble.classList.remove('show');
+            bubble.classList.add('hide');
+            clearInterval(tracker);
+            setTimeout(() => {
+              bubble.remove();
+              resolve();
+            }, 500);
+          }, duration);
+        });
+      }
+
+      // Run the message sequence
+      setTimeout(async () => {
+        // 1st message
+        await showBubble('Welcome, I am Alvee', 3000);
+        // 2nd message (right after 1st)
+        await showBubble("I'll be your Tour Guide..", 3000);
+        // 10 second delay
+        await new Promise(r => setTimeout(r, 10000));
+        // 3rd message
+        await showBubble(
+          `If you don't want me to follow<br>you can kill me by playing<br><span style="color:var(--gold);font-size:1.1em;">The Game</span>`,
+          7000
+        );
+      }, 600);
+
+      // === ALVEE SWARM EFFECT (5 clicks) ===
+      let alveeClickCount = 0;
+      let alveeClickTimer = null;
+      let swarmActive = false;
+
+      document.addEventListener('click', (e) => {
+        if (alveeState !== 'FOLLOWING' || swarmActive) return;
+
+        // Check if click is near the spider
+        const dx = e.clientX - spiderX;
+        const dy = e.clientY - spiderY;
+        if (Math.sqrt(dx * dx + dy * dy) > 40) return;
+
+        alveeClickCount++;
+        clearTimeout(alveeClickTimer);
+        alveeClickTimer = setTimeout(() => { alveeClickCount = 0; }, 2000);
+
+        if (alveeClickCount >= 5) {
+          alveeClickCount = 0;
+          clearTimeout(alveeClickTimer);
+          triggerSwarm();
+        }
+      });
+
+      function triggerSwarm() {
+        swarmActive = true;
+        initAudio();
+
+        // Play dramatic sound
+        if (audioCtx) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.5);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+          osc.start(audioCtx.currentTime);
+          osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        const miniSpiderSVG = `<svg viewBox="0 0 100 100"><g stroke="var(--gold)" stroke-width="3" fill="var(--bg)" stroke-linejoin="round" stroke-linecap="round"><path d="M 45 28 L 55 28 L 68 68 L 58 68 L 54 54 L 46 54 L 42 68 L 32 68 Z M 50 36 L 47 48 L 53 48 Z"/><polygon points="20,20 25,35 28,32 25,25 32,28 35,25"/><polygon points="80,20 75,35 72,32 75,25 68,28 65,25"/><polygon points="10,90 23,67 33,73"/><polygon points="90,90 77,67 67,73"/></g></svg>`;
+
+        const minis = [];
+
+        for (let i = 0; i < 100; i++) {
+          const mini = document.createElement('div');
+          mini.className = 'mini-alvee';
+          mini.innerHTML = miniSpiderSVG;
+          document.body.appendChild(mini);
+
+          const size = 14 + Math.random() * 18;
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.5 + Math.random() * 4;
+
+          const spawnX = spiderX + window.scrollX;
+          const spawnY = spiderY + window.scrollY;
+
+          const m = {
+            el: mini,
+            x: spawnX,
+            y: spawnY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: size,
+            rot: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 12,
+            dirTimer: Math.floor(Math.random() * 60)
+          };
+          minis.push(m);
+
+          mini.style.width = size + 'px';
+          mini.style.height = size + 'px';
+          mini.style.left = spawnX + 'px';
+          mini.style.top = spawnY + 'px';
+        }
+
+        // Start earthquake
+        document.body.classList.add('earthquake');
+
+        const swarmStart = performance.now();
+
+        function animateSwarm(time) {
+          const elapsed = (time - swarmStart) / 1000;
+
+          if (elapsed > 10) {
+            // Fade out all minis
+            minis.forEach(m => { m.el.style.opacity = '0'; });
+            document.body.classList.remove('earthquake');
+            setTimeout(() => {
+              minis.forEach(m => m.el.remove());
+              swarmActive = false;
+            }, 700);
+            return;
+          }
+
+          minis.forEach(m => {
+            // Randomly change direction
+            m.dirTimer--;
+            if (m.dirTimer <= 0) {
+              const a = Math.random() * Math.PI * 2;
+              const s = 1.5 + Math.random() * 4;
+              m.vx = Math.cos(a) * s;
+              m.vy = Math.sin(a) * s;
+              m.dirTimer = 30 + Math.floor(Math.random() * 80);
+            }
+
+            m.x += m.vx;
+            m.y += m.vy;
+            m.rot += m.rotSpeed;
+
+            // Bounce off full page edges
+            const pageW = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+            const pageH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+            if (m.x < 0) { m.x = 0; m.vx = Math.abs(m.vx); }
+            if (m.x > pageW) { m.x = pageW; m.vx = -Math.abs(m.vx); }
+            if (m.y < 0) { m.y = 0; m.vy = Math.abs(m.vy); }
+            if (m.y > pageH) { m.y = pageH; m.vy = -Math.abs(m.vy); }
+
+            m.el.style.left = m.x + 'px';
+            m.el.style.top = m.y + 'px';
+            m.el.style.transform = `translate(-50%, -50%) rotate(${m.rot}deg)`;
+          });
+
+          requestAnimationFrame(animateSwarm);
+        }
+        requestAnimationFrame(animateSwarm);
+      }
+    })();
+  </script>
+</body>
+
+</html>
